@@ -32,13 +32,5 @@ def lookupRecipes(search_string):
             recipes[i]["ingredients"].append(ingredient.text.strip())
         for instruction in result.find(("ul"),{"class":"instructions-section"}).find_all("p"):
             recipes[i]["instructions"].append(instruction.text)
-
-        # for recipe in recipes:
-        #     print(recipe)
-        #     print('\n')
-          
-    # print(trees_saved)
               
     return[recipes, trees_saved]
-        
-print(lookupRecipes("chicken nuggets"))
