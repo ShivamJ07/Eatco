@@ -1,14 +1,15 @@
 from flask import Flask, request, redirect, render_template, url_for, session
-# from webSearchAPI import lookupRecipes
+from webSearchAPI import lookupRecipes
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from urllib.parse import quote
 import os, json, requests
 from googlesearch import search
 from bs4 import BeautifulSoup
-import requests
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'Shivam&Arnav - Ended 2022'
 
@@ -30,7 +31,7 @@ def auth_page_for_redirect():
 
 @app.route('/get-recipe', methods=['GET'])
 def getRecipe():
-    return {"this": "works"}
+    return lookupRecipes(request.args['search'])
 
 @app.route('/login/', methods=['POST'])
 def user_login_check():
@@ -227,4 +228,6 @@ def generate_playlist(messages):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
 
