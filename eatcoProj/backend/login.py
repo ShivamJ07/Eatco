@@ -1,5 +1,5 @@
-from flask import Flask, request
-# from webSearchAPI import lookupRecipes
+from flask import Flask, render_template, request, redirect, url_for
+
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -10,9 +10,10 @@ db = cluster["mydb"]
 
 users = db["todos"]
 
-@app.route('/get-recipe', methods=['GET'])
-def getRecipe():
-    return {"this": "works"}
+@app.route('/')
+@app.route('/login/')
+def user_login():
+    return render_template('login.html')
 
 @app.route('/login/', methods=['POST'])
 def user_login_check():
@@ -21,11 +22,15 @@ def user_login_check():
     user = users.find_one({"username":username})
     if user is not None:
         if password == user['password']:
-            return {"message" : "YAY"}
+            return "YAY"
         else:
-            return {"message": "Incorrect password"}
+            return "Incorrect password"
     else:
-        return {"message": "Please create an account first"}
+        return "Please create an account first"
+
+@app.route('/register/')
+def user_register():
+    return render_template('register.html')
 
 @app.route('/register/', methods=['POST'])
 def user_register_check():
@@ -38,11 +43,10 @@ def user_register_check():
     user = {
         '_id': _id,
         'username': username,
-        'password': password,
-        'treesSaved': 0
+        'password': password
     }
     users.insert_one(user)
-    return user
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
