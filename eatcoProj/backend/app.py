@@ -16,6 +16,10 @@ load_dotenv()
 
 cluster = MongoClient(os.environ.get('dbURI'))
 
+SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
+
+SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
+
 db = cluster["mydb"]
 
 users = db["todos"]
@@ -58,8 +62,6 @@ def user_register_check():
     users.insert_one(user)
     return user
 
-SPOTIFY_CLIENT_ID = '28f2fde0e77f4770869fb91dbad757e6'
-SPOTIFY_CLIENT_SECRET = '1c43a2d1428f478cba791863f982efc6'
 SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'
 SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
