@@ -7,3 +7,16 @@
     justify-content: flex-start; 
 }
 
+.registerbtn {
+    background-color: #E38C09;
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+    width: 100px;
+    height: 25px;
+  }
+  
+  .registerbtn:hover {
+    opacity: 1;
+  }
