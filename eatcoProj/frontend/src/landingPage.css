@@ -1,14 +1,50 @@
-.containerPage{
+.fullPage{
     display: flex;
-    margin-top: 15px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
-.topIcons{
-    justify-content: flex-start; 
+.containerPage{
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 10px;
+}
+
+.text{
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    align-items: center;
+}
+
+.text h2{
+    width: 734px;
+    height: 159px;
+    left: 352px;
+    top: 267px;
+
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 77px;
+
+    color: #333333;
+}
+
+.text h3{
+    width: 748px;
+    height: 96px;
+    left: 352px;
+    top: 463px;
+
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #333333;
 }
 
 .registerbtn {
-    background-color: #E38C09;
+    background-color: #f9ae3d;
     color: white;
     cursor: pointer;
     border-radius: 15px;
