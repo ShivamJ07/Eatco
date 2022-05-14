@@ -1,0 +1,24 @@
+.Header {
+    border-bottom: 1px solid silver;
+}
+
+nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-icon img {
+    width: 2vw;
+}
+
+.Header .menu-icon {
+    padding: 1%;
+    height: auto;
+    width: 2vw;
+}
+
+.hide-element {
+    visibility: hidden;
+}

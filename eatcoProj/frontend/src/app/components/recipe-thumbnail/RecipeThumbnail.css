@@ -1,0 +1,17 @@
+.RecipeThumbnail {
+    text-align: center;
+    width: 25vw;
+    height: 25vh;
+    margin: 2vw;
+    cursor: pointer;
+}
+
+.RecipeThumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recipe-thumbnail-name {
+    margin: 0;
+}

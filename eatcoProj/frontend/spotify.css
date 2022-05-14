@@ -1,0 +1,62 @@
+.containerPage {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.containerText {
+    display: flex;
+    font-family: 'Inter';
+    font-style: normal;
+}
+
+.containerText p{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    text-decoration-line: underline;
+    margin-top: 50px;
+    align-items: flex-start;
+    color: #333333;
+    margin-left: 15px;
+}
+
+.containerText h2 {
+    font-weight: 300;
+    width: 501px;
+    height: 129px;
+    left: 439px;
+    top: 409px;
+    margin-top: 0;
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.registerbtn {
+    background-color: #5cac0e;
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+    width: 120px;
+    height: 30px;
+  }
+  
+.registerbtn:hover {
+    opacity: 1;
+}
+
+.containerSubmit {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
