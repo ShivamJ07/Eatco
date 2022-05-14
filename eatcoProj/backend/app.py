@@ -1,10 +1,13 @@
 from flask import Flask, request
 # from webSearchAPI import lookupRecipes
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-cluster = MongoClient('mongodb+srv://ShivamJ:shivfury123@cluster0.wkskk.mongodb.net/mydb?retryWrites=true&w=majority')
+load_dotenv()
+cluster = MongoClient(os.environ.get('dbURI'))
 
 db = cluster["mydb"]
 
