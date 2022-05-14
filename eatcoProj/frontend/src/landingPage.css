@@ -1,0 +1,8 @@
+.containerPage{
+    display: flex;
+    margin-top: 10px;
+}
+
+.topIcons{
+    justify-content: flex-start; 
+}
