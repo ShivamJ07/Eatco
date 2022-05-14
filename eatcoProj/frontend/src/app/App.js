@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/header/Header';
+import Sidebar from './components/sidebar/Sidebar';
 import RecipeSearch from './components/search/RecipeSearch';
 import RecipeThumbnail from './components/recipe-thumbnail/RecipeThumbnail';
 import Recipe from './components/recipe/Recipe';
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [showHeader, setshowHeader] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   const [showSidebar, setShowSidebar] = useState(false);
   const [recipeQuery, setRecipeQuery] = useState('');
   const [recipes, setRecipes] = useState([]);
@@ -39,10 +41,27 @@ function App() {
     setShowRecipe(true);
   }
 
+  const openMenu = () => {
+    setShowHeader(false);
+    setShowSidebar(true);
+  }
+
+  const closeMenu = () => {
+    setShowSidebar(false);
+    setShowHeader(true);
+  }
+
   return (
     <div className="App">
 
-      <Header />
+      {showHeader && (
+        <Header openMenu={openMenu} />
+      )}
+
+      {showSidebar && (
+        <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} />
+      )}
+
       {!showRecipe && (
         <>
           <RecipeSearch setRecipeQuery={setRecipeQuery} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './Sidebar.css';
+import './RecipeThumbnail.css';
 
 function RecipeThumbnail(props) {
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Ingredients from '../ingredients/Ingredients';
-// import './Sidebar.css';
+import './Recipe.css';
 
 function Recipe(props) {
 
@@ -8,12 +8,21 @@ function Recipe(props) {
     recipe
   } = props;
 
+  const generatePlaylist = () => {
+    console.debug('Generate playlist');
+  }
+
   return (
     <div className="Recipe">
 
       <div className="recipe-header">
-        <h1>{recipe.name}</h1>
-        <a href={recipe.source}>Source</a>
+        <div>
+          <h1>{recipe.name}</h1>
+          <a href={recipe.source}>Source</a>
+        </div>
+        <div>
+          <button onClick={generatePlaylist}>Generate cooking playlist</button>
+        </div>
       </div>
 
       <div className='recipe-image-ingredients'>
