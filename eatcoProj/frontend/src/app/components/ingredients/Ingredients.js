@@ -9,6 +9,7 @@ function Ingredients(props) {
 
   return (
     <div className="Ingredients">
+      <h2>Ingredients</h2>
         {ingredients.map(ingredient => 
             <div key={ingredient.index}>
                 <input type="checkbox" />

@@ -1,5 +1,4 @@
 .Header {
-    height: 6vh;
     border-bottom: 1px solid silver;
 }
 
@@ -15,7 +14,11 @@ nav {
 }
 
 .Header .menu-icon {
-    padding: 2%;
+    padding: 1%;
     height: auto;
     width: 2vw;
+}
+
+.hide-element {
+    visibility: hidden;
 }

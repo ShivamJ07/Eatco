@@ -29,6 +29,27 @@ function App() {
         source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
         ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
         steps: ['Cook chicken', 'Eat chicken']
+      },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
       }
     ]);
     setFetchedRecipes(true);
@@ -54,21 +75,19 @@ function App() {
   return (
     <div className="App">
 
-      {showHeader && (
-        <Header openMenu={openMenu} />
-      )}
+      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} />
 
-      {showSidebar && (
-        <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} />
-      )}
+      <Header openMenu={openMenu} showHeader={showHeader} />
 
       {!showRecipe && (
         <>
           <RecipeSearch setRecipeQuery={setRecipeQuery} />
 
-          {recipes.map(recipe => 
-            <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
-          )}
+          <div className='recipe-thumbnails'>
+            {recipes.map(recipe => 
+              <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
+            )}
+          </div>
 
           {recipes.length === 0 && fetchedRecipes && (
             <div className='no-results'>
@@ -79,8 +98,12 @@ function App() {
       )}
 
       {showRecipe && (
-        <Recipe recipe={openedRecipe} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} />
       )}
+
+      <footer>
+        <a href="#">© eatco 2022</a>
+      </footer>
 
     </div>
   );
