@@ -15,7 +15,7 @@ def lookupRecipes(search_string):
         trees_saved = 40
     elif ("pork" in search_query) or ("ribs" in search_query):
         trees_saved = 20
-    for link in search(search_query, tld='com', lang='en', num=5, start=0, stop=5, pause=2):
+    for link in search(search_query, tld='com', lang='en', num=5, start=0, stop=5, pause=50):
         if '/recipe/' in link:
             result = requests.get(link)
             results.append(BeautifulSoup(result.text, "html.parser"))
@@ -41,4 +41,4 @@ def lookupRecipes(search_string):
               
     return[recipes, trees_saved]
         
-# print(lookupRecipes("chicken nuggets")[1])
+print(lookupRecipes("chicken nuggets"))
