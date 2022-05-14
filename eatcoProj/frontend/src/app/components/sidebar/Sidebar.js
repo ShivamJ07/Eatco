@@ -19,10 +19,12 @@ function Sidebar(props) {
       <div className='nav-links'>
         <a href="/">Search</a>
         <a href="#" onClick={() => {
+          setShowSavedRecipes(false);
           setShowMyRecipes(true);
           closeMenu();
           }}>Recipe History</a>
         <a href="#" onClick={() => {
+          setShowMyRecipes(false);
           setShowSavedRecipes(true);
           closeMenu();
           }}>Saved for Later</a>
