@@ -5,7 +5,9 @@ function Sidebar(props) {
   const {
     closeMenu,
     loggedIn,
-    showSidebar
+    showSidebar,
+    setShowSavedRecipes,
+    setShowMyRecipes
   } = props
 
   return (
@@ -16,8 +18,14 @@ function Sidebar(props) {
       </div>
       <div className='nav-links'>
         <a href="/">Search</a>
-        <a href="#">Recipes I've Made</a>
-        <a href="#">Saved for Later</a>
+        <a href="#" onClick={() => {
+          setShowMyRecipes(true);
+          closeMenu();
+          }}>Recipe History</a>
+        <a href="#" onClick={() => {
+          setShowSavedRecipes(true);
+          closeMenu();
+          }}>Saved for Later</a>
       </div>
       <div className='auth-links'>
         {loggedIn && (
