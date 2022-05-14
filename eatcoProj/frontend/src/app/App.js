@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/header/Header';
 import RecipeSearch from './components/search/RecipeSearch';
 import RecipeThumbnail from './components/recipe-thumbnail/RecipeThumbnail';
+import Recipe from './components/recipe/Recipe';
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
   const [recipeQuery, setRecipeQuery] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [fetchedRecipes, setFetchedRecipes] = useState(false);
+  const [showRecipe, setShowRecipe] = useState(false);
+  const [openedRecipe, setOpenedRecipe] = useState({});
 
   useEffect(() => setMounted(true), []);
 
@@ -19,29 +22,47 @@ function App() {
     if (mounted) {
       setRecipes([ // api request here for recipe search
       {
-        name: recipeQuery,
+        name: 'Vegan Chicken',
         image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: ''
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
       }
     ]);
+    setFetchedRecipes(true);
     }
   }, [recipeQuery]);
+
+  const getRecipe = (recipe) => {
+    console.debug('get recipe ', recipe.name);
+    setOpenedRecipe(recipe);
+    setShowRecipe(true);
+  }
 
   return (
     <div className="App">
 
       <Header />
-      <RecipeSearch setRecipeQuery={setRecipeQuery} />
+      {!showRecipe && (
+        <>
+          <RecipeSearch setRecipeQuery={setRecipeQuery} />
 
-      {recipes.map(recipe => 
-        <RecipeThumbnail recipe={recipe} key={recipe} />
+          {recipes.map(recipe => 
+            <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
+          )}
+
+          {recipes.length === 0 && fetchedRecipes && (
+            <div className='no-results'>
+              <h3>Sorry, we couldn't find any recipes that taste like {recipeQuery}.</h3>
+            </div>
+          )}
+        </>
       )}
 
-      {recipes.length === 0 && fetchedRecipes && (
-        <div className='no-results'>
-          <h3>Sorry, we couldn't find any recipes that taste like {recipeQuery}.</h3>
-        </div>
+      {showRecipe && (
+        <Recipe recipe={openedRecipe} />
       )}
+
     </div>
   );
 }
