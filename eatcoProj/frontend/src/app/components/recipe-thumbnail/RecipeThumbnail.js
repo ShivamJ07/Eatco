@@ -9,7 +9,8 @@ function RecipeThumbnail(props) {
 
   return (
     <div className="RecipeThumbnail">
-      <h1>{recipe}</h1>
+      <h1>{recipe.name}</h1>
+      <img src={recipe.image} className="recipe-thumbnail-img" />
     </div>
   );
 }
