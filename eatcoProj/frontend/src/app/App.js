@@ -22,36 +22,8 @@ function App() {
 
   useEffect(() => {
     if (mounted) {
-      setRecipes([ // api request here for recipe search
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      },
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      },
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      },
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      }
-    ]);
+      console.log('this happened');
+      fetch("http://localhost:5000/get-recipe?search=" + recipeQuery).then(response => response.json()).then(data => console.log(data));
     setFetchedRecipes(true);
     }
   }, [recipeQuery]);
