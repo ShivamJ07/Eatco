@@ -6,9 +6,9 @@ import RecipeSearch from './components/search/RecipeSearch';
 import RecipeThumbnail from './components/recipe-thumbnail/RecipeThumbnail';
 import Recipe from './components/recipe/Recipe';
 
-function App() {
+function App(props) {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const {loggedIn, setLoggedIn} = props;
   const [mounted, setMounted] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -22,7 +22,7 @@ function App() {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [myRecipes, setMyRecipes] = useState([]);
 
-  const trees = 3; // need to make api get request to trees
+  var trees = 0; // need to make api get request to trees
 
   useEffect(() => setMounted(true), []);
 
@@ -92,16 +92,43 @@ function App() {
     ]);
   }, []);
 
-  useEffect(() => { // api POST request here for saved recipes using savedRecipes
+  useEffect(() => { 
+    async function fetchData() {
+      fetch("http://localhost:5000/update-saved",
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          recipe: openedRecipe,
+          user: localStorage.getItem("user")
+        })
+      }).then(response => response.json())
+        .then(data => console.log(data))
+      const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json())
+      trees = message['message']
+      console.log(trees)
+    }
+    fetchData();
   }, [savedRecipes]);
 
-  useEffect(() => { // api POST request here for recipe history using myRecipes
+  useEffect(() => { 
+    async function fetchData() {
+      fetch("http://localhost:5000/update-viewed",
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          recipe: openedRecipe,
+          user: localStorage.getItem("user")
+        })
+      }).then(response => response.json())
+        .then(data => console.log(data))
+    }
+    fetchData();
   }, [myRecipes]);
 
   return (
     <div className="App">
 
-      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
+      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} setLoggedIn={setLoggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
 
       <Header openMenu={openMenu} showHeader={showHeader} trees={trees} />
 
