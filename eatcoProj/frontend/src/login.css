@@ -1,0 +1,42 @@
+.Login {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.containerFormInput {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.containerFormInput .containerText {
+    width: 55%;
+    text-align: right;
+    margin: 2%;
+}
+
+label {
+    margin-right: 1vw;
+}
+
+input {
+    font-size: 1vw;
+}
+
+button {
+    background: #F9AE3D;
+    border-radius: 20px;
+    padding: 0.5%;
+    border: none;
+    cursor: pointer;
+    font-size: 2vh;
+    padding: 2%;
+}
+  
+button:hover {
+    background: #ce871c;
+}
