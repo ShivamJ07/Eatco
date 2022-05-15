@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Ingredients from '../ingredients/Ingredients';
 import './Recipe.css';
+import unsaved from './bookmark.svg';
+import saved_bookmark from './bookmark-2.svg';
 
 function Recipe(props) {
 
@@ -14,9 +16,11 @@ function Recipe(props) {
   } = props;
 
   const [playlistURI, setplaylistURI] = useState('');
+  const [saved, setSaved] = useState(false);
 
   const saveRecipe = () => {
     console.debug('Save recipe');
+    setSaved(true);
     setTrees(7);
     if (!savedRecipes.includes(recipe)) { // add recipe if not already in saved otherwise assume user wants to remove it
       setSavedRecipes([...savedRecipes, recipe]);
@@ -49,8 +53,11 @@ function Recipe(props) {
         </div>
         <div className='right-side-buttons'>
           <button className='playlist-btn' onClick={generatePlaylist}>Generate cooking playlist</button>
-          {loggedIn && (
-            <img src="https://cdn-icons-png.flaticon.com/128/3916/3916593.png" onClick={saveRecipe} className='bookmark' />
+          {loggedIn && !saved && (
+            <img src={unsaved} onClick={saveRecipe} className='bookmark' />
+          )}
+          {loggedIn && saved && (
+            <img src={saved_bookmark} onClick={saveRecipe} className='bookmark' />
           )}
         </div>
       </div>
