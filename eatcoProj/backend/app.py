@@ -30,10 +30,12 @@ def auth_page_for_redirect():
     return render_template("auth.html")
 
 @app.route('/get-recipe', methods=['GET'])
+@cross_origin()
 def getRecipe():
     return lookupRecipes(request.args['search'])
 
 @app.route('/login/', methods=['POST'])
+@cross_origin()
 def user_login_check():
     username = request.form.get('Username')
     password = request.form.get('Password')
@@ -47,6 +49,7 @@ def user_login_check():
         return {"message": "Please create an account first"}
 
 @app.route('/register/', methods=['POST'])
+@cross_origin()
 def user_register_check():
     username = request.form.get('Username')
     password = request.form.get('Password')
@@ -78,15 +81,16 @@ spotify_auth_query_params = {
     'client_id': SPOTIFY_CLIENT_ID
 }
 
-@app.route('/login-spotify', methods=['POST'])
+@app.route('/login-spotify', methods=['GET'])
+@cross_origin()
 def login_spotify():
-    session['recipe'] = request.form.get('recipe')
-    # print(session['recipe'])
+    session['recipe'] = request.args.get('recipe')
     url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in spotify_auth_query_params.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     return redirect(auth_url)
 
 @app.route('/authorize-spotify/')
+@cross_origin()
 def auth_spotify():
     genres = []
     track_ids = []
@@ -126,7 +130,7 @@ def auth_spotify():
     top_tracks_endpoint = user_profile_api_endpoint + '/top/tracks'
     limit = 50
     time_range = 'medium_term'
-    artists_response = requests.get(top_artists_endpoint + '?offset=0&limit=' + str(limit) + '&time_range=' + time_range, headers = authorization_header)
+    artists_response = requests.get(top_artists_endpoint + '?offset=0&limit=50&time_range=' + time_range, headers = authorization_header)
     artists_data = json.loads(artists_response.text)
     
     tracks_response = requests.get(top_tracks_endpoint + '?offset=0&limit=' + str(limit) + '&time_range=' + time_range, headers = authorization_header)

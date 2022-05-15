@@ -14,7 +14,9 @@ function Recipe(props) {
   }
 
   const generatePlaylist = () => {
-    console.debug('Generate playlist');
+    localStorage.setItem("recipe", JSON.stringify(recipe))
+    var scope = 'playlist-modify-private playlist-modify-public';
+    var spotifyLoginWindow = window.open("http://localhost:5000/login-spotify?recipe=" + JSON.stringify(recipe))
   }
 
   return (
@@ -23,8 +25,8 @@ function Recipe(props) {
       <div className="flex recipe-header">
         <div>
           <a href="/">← Back to search</a>
-          <h1>{recipe.name}</h1>
-          <a href={recipe.source}>Source</a>
+          <h1>{recipe.title}</h1>
+          <a href={recipe.url}>Source</a>
         </div>
         <div className='right-side-buttons'>
           <button className='playlist-btn' onClick={generatePlaylist}>Generate cooking playlist</button>
@@ -46,7 +48,7 @@ function Recipe(props) {
       <div className='recipe-steps'>
         <h2>Method</h2>
         <ol>
-          {recipe.steps.map(step => 
+          {recipe.instructions.map(step => 
             <li key={step.index}>{step}</li>
           )}
         </ol>
