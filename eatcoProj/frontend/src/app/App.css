@@ -4,27 +4,7 @@
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  background: linear-gradient(180deg, rgba(255, 233, 201, 0) 0%, #F9AE3D 200%);
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  background: linear-gradient(180deg, rgba(255, 233, 201, 0) 0%, #f9ae3d 200%);
 }
 
 .recipe-thumbnails {
@@ -48,6 +28,7 @@ footer {
   padding: 0.5%;
   border: none;
   cursor: pointer;
+  font-size: 2vh;
 }
 
 .search-btn:hover {

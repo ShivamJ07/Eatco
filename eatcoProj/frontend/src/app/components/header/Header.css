@@ -11,6 +11,7 @@ nav {
 
 .menu-icon img {
     width: 2vw;
+    cursor: pointer;
 }
 
 .Header .menu-icon {

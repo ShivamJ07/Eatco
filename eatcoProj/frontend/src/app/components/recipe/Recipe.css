@@ -54,6 +54,7 @@ hr {
     padding: 1%;
     border: none;
     cursor: pointer;
+    font-size: 2vh;
 }
 
 .right-side-buttons {
@@ -67,4 +68,5 @@ hr {
 .bookmark {
     width: 2vw;
     margin-left: 1vw;
+    cursor: pointer;
 }

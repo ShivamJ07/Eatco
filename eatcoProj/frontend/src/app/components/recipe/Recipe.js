@@ -6,7 +6,8 @@ function Recipe(props) {
 
   const {
     recipe,
-    loggedIn
+    loggedIn,
+    setShowRecipe
   } = props;
 
   const saveRecipe = () => {
@@ -17,12 +18,17 @@ function Recipe(props) {
     console.debug('Generate playlist');
   }
 
+  const backToSearch = e => {
+    e.preventDefault();
+    setShowRecipe(false);
+  }
+
   return (
     <div className="Recipe">
 
       <div className="flex recipe-header">
         <div>
-          <a href="/">← Back to search</a>
+          <a href="#" onClick={backToSearch}>← Back to results</a>
           <h1>{recipe.name}</h1>
           <a href={recipe.source}>Source</a>
         </div>
