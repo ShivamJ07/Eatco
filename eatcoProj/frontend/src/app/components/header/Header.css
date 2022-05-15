@@ -14,6 +14,17 @@ nav {
     cursor: pointer;
 }
 
+.trees {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#tree-icon {
+    width: 3vw;
+}
+
 .Header .menu-icon {
     padding: 1%;
     height: auto;

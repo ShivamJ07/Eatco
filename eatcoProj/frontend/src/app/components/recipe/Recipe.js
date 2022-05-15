@@ -7,13 +7,27 @@ function Recipe(props) {
   const {
     recipe,
     loggedIn,
-    setShowRecipe
+    setShowRecipe,
+    savedRecipes,
+    setSavedRecipes,
+    trees,
+    setTrees
   } = props;
 
   const [playlistURI, setplaylistURI] = useState('');
 
   const saveRecipe = () => {
     console.debug('Save recipe');
+    
+    if (!savedRecipes.include(recipe)) {
+      setTrees(trees+1);
+      var updatedRecipes = savedRecipes.slice();
+      updatedRecipes.push(recipe);
+    } else {
+      setTrees(trees-1);
+      var updatedRecipes = savedRecipes.filter(otherRecipe => otherRecipe !== recipe);
+    }
+    setSavedRecipes(updatedRecipes);
   }
 
   const generatePlaylist = () => {
@@ -61,11 +75,14 @@ function Recipe(props) {
             )}
           </ol>
         </div>
-        <div className='recipe-playlist' id="embed-iframe">
         {playlistURI && (
-          <iframe src={`https://open.spotify.com/embed/playlist/${playlistURI}?utm_source=generator`} width="100%" height="380" frameBorder="0" allowFullScreen></iframe>
-        )}
+        <div className='recipe-playlist'>
+          <div className='playlist-alert'>
+            <p>A cooking playlist to keep you company :)</p>
+          </div>
+          <iframe id="embed-iframe" src={`https://open.spotify.com/embed/playlist/${playlistURI}?utm_source=generator`} width="100%" height="380" frameBorder="0" allowFullScreen></iframe>
         </div>
+        )}
       </div>
 
     </div>

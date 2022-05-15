@@ -19,6 +19,9 @@ function App() {
   const [openedRecipe, setOpenedRecipe] = useState({});
   const [showSavedRecipes, setShowSavedRecipes] = useState(false);
   const [showMyRecipes, setShowMyRecipes] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [myRecipes, setMyRecipes] = useState([]);
+  const [trees, setTrees] = useState(3);
 
   useEffect(() => setMounted(true), []);
 
@@ -75,8 +78,8 @@ function App() {
     setShowHeader(true);
   }
 
-  const savedRecipes = () => { // api request here for saved recipes
-    return [
+  useEffect(() => { // api request here for saved recipes
+    setSavedRecipes([
       {
         name: 'Vegan Chicken',
         image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
@@ -98,11 +101,11 @@ function App() {
         ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
         steps: ['Cook chicken', 'Eat chicken']
       }
-    ]
-  }
+    ]);
+  }, []);
 
-  const myRecipes = () => { // api request here for recipe history
-    return [
+  useEffect(() => { // api request here for recipe history
+    setMyRecipes([
       {
         name: 'Vegan Chicken',
         image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
@@ -110,15 +113,15 @@ function App() {
         ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
         steps: ['Cook chicken', 'Eat chicken']
       }
-    ]
-  }
+    ]);
+  }, []);
 
   return (
     <div className="App">
 
       <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
 
-      <Header openMenu={openMenu} showHeader={showHeader} />
+      <Header openMenu={openMenu} showHeader={showHeader} trees={trees} />
 
       {!showRecipe && !showSavedRecipes && !showMyRecipes && (
         <>
@@ -142,12 +145,12 @@ function App() {
         <>
         <h1>Recipes You've Viewed</h1>
           <div className='recipe-thumbnails'>
-            {myRecipes().map(recipe => 
+            {myRecipes.map(recipe => 
               <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
             )}
           </div>
 
-          {savedRecipes().length === 0 && (
+          {savedRecipes.length === 0 && (
             <div className='no-results'>
               <h3>You haven't viewed any recipes yet!</h3>
             </div>
@@ -159,12 +162,12 @@ function App() {
         <>
         <h1>Saved Recipes</h1>
           <div className='recipe-thumbnails'>
-            {savedRecipes().map(recipe => 
+            {savedRecipes.map(recipe => 
               <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
             )}
           </div>
 
-          {savedRecipes().length === 0 && (
+          {savedRecipes.length === 0 && (
             <div className='no-results'>
               <h3>You don't have any saved recipes yet!</h3>
             </div>
@@ -173,7 +176,7 @@ function App() {
       )}
 
       {showRecipe && (
-        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes} trees={trees} setTrees={setTrees} />
       )}
 
       <footer>
