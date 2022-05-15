@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Ingredients from '../ingredients/Ingredients';
 import './Recipe.css';
 import unsaved from './bookmark.svg';
-import saved from './bookmark-2.svg';
+import saved_bookmark from './bookmark-2.svg';
 
 function Recipe(props) {
 
@@ -53,11 +53,11 @@ function Recipe(props) {
         </div>
         <div className='right-side-buttons'>
           <button className='playlist-btn' onClick={generatePlaylist}>Generate cooking playlist</button>
-          {loggedIn && !saved (
+          {loggedIn && !saved && (
             <img src={unsaved} onClick={saveRecipe} className='bookmark' />
           )}
-          {loggedIn && saved (
-            <img src={saved} onClick={saveRecipe} className='bookmark' />
+          {loggedIn && saved && (
+            <img src={saved_bookmark} onClick={saveRecipe} className='bookmark' />
           )}
         </div>
       </div>
