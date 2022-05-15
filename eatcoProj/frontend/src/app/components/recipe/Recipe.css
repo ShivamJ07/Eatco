@@ -28,9 +28,10 @@ hr {
     width: 50vw;
 }
 
-.recipe-steps {
+.recipe-steps-playlist {
     padding: 2vw;
     text-align: left;
+    align-items: flex-start;
 }
 
 .recipe-header {
