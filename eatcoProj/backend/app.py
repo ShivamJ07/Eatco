@@ -43,7 +43,7 @@ def getTreesSaved():
     if user is not None:
         return {"message": user['treesSaved']}
     else:
-        return {"message": "invalid user"}
+        return {"message": 0}
 
 @app.route('/update-saved', methods=['GET','POST'])
 @cross_origin()
@@ -93,7 +93,7 @@ def viewedUpdate():
     
 def updateSavedRecipes(username, recipe):
     exists = False
-    for user in list(users.find({"recipesSaved": {"$exists": True}})):
+    for user in list(users.find({"recipesSaved": {"$exists": True, "$not": {"$size": 0}}})):
         if user['username'] == username:
             exists = True 
             break
