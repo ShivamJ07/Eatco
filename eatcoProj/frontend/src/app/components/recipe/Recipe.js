@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ingredients from '../ingredients/Ingredients';
 import './Recipe.css';
 
@@ -10,12 +10,15 @@ function Recipe(props) {
     setShowRecipe
   } = props;
 
+  const [playlistURI, setplaylistURI] = useState('');
+
   const saveRecipe = () => {
     console.debug('Save recipe');
   }
 
   const generatePlaylist = () => {
     console.debug('Generate playlist');
+    setplaylistURI('37i9dQZF1E35azQvKUNASY'); // replace this with generated playlist uri
   }
 
   const backToSearch = e => {
@@ -49,13 +52,20 @@ function Recipe(props) {
         <Ingredients ingredients={recipe.ingredients} />
       </div>
 
-      <div className='recipe-steps'>
-        <h2>Method</h2>
-        <ol>
-          {recipe.steps.map(step => 
-            <li key={step.index}>{step}</li>
-          )}
-        </ol>
+      <div className='flex recipe-steps-playlist'>
+        <div className='recipe-steps'>
+          <h2>Method</h2>
+          <ol>
+            {recipe.steps.map(step => 
+              <li key={step.index}>{step}</li>
+            )}
+          </ol>
+        </div>
+        <div className='recipe-playlist' id="embed-iframe">
+        {playlistURI && (
+          <iframe src={`https://open.spotify.com/embed/playlist/${playlistURI}?utm_source=generator`} width="100%" height="380" frameBorder="0" allowFullScreen></iframe>
+        )}
+        </div>
       </div>
 
     </div>
