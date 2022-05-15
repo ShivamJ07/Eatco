@@ -43,7 +43,7 @@ def getTreesSaved():
     if user is not None:
         return {"message": user['treesSaved']}
     else:
-        return {"message": "invalid user"}
+        return {"message": 0}
 
 @app.route('/update-saved', methods=['GET','POST'])
 @cross_origin()
@@ -51,7 +51,7 @@ def savedUpdate():
     if request.method == 'GET':
         user = request.args.get("username")
         the_user = users.find_one({'username': user})
-        return {"recipesSaved": the_user["recipesSaved"]}
+        return {"recipesSaved": the_user["recipesSaved"]} if the_user != None else {"recipesSaved": []}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')
@@ -77,7 +77,7 @@ def viewedUpdate():
     if request.method == 'GET':
         user = request.args.get("username")
         the_user = users.find_one({'username': user})
-        return {"recipesSaved": the_user["recipesViewed"]}
+        return {"recipesSaved": the_user["recipesViewed"]} if the_user != None else {"recipesViewed": []}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')
@@ -93,7 +93,7 @@ def viewedUpdate():
     
 def updateSavedRecipes(username, recipe):
     exists = False
-    for user in list(users.find({"recipesSaved": {"$exists": True}})):
+    for user in list(users.find({"recipesSaved": {"$exists": True, "$not": {"$size": 0}}})):
         if user['username'] == username:
             exists = True 
             break
