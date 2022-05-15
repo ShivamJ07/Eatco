@@ -6,7 +6,8 @@ import Register from './Register';
 
 function Routing() {
 
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'));
+    console.log(loggedIn);
 
     return (
     <Router>

@@ -51,7 +51,7 @@ def savedUpdate():
     if request.method == 'GET':
         user = request.args.get("username")
         the_user = users.find_one({'username': user})
-        return {"recipesSaved": the_user["recipesSaved"]}
+        return {"recipesSaved": the_user["recipesSaved"]} if the_user != None else {"recipesSaved": []}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')
@@ -77,7 +77,7 @@ def viewedUpdate():
     if request.method == 'GET':
         user = request.args.get("username")
         the_user = users.find_one({'username': user})
-        return {"recipesSaved": the_user["recipesViewed"]}
+        return {"recipesSaved": the_user["recipesViewed"]} if the_user != None else {"recipesViewed": []}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')

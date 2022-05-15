@@ -21,8 +21,8 @@ function App(props) {
   const [showMyRecipes, setShowMyRecipes] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [myRecipes, setMyRecipes] = useState([]);
+  const [trees, setTrees] = useState(0);
 
-  var trees = 0; // need to make api get request to trees
 
   useEffect(() => setMounted(true), []);
 
@@ -58,38 +58,19 @@ function App(props) {
   }
 
   useEffect(() => {
-    setSavedRecipes([ // api GET request here for saved recipes
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      },
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      },
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      }
-    ]);
-    setMyRecipes([ // api GET request here for recipe history
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      }
-    ]);
+    async function fetchData() {
+      // saved recipes
+      const getSavedRecipes = await fetch("http://localhost:5000/update-saved?user=" + localStorage.getItem("user"), {mode:"cors", 'Access-Control-Allow-Origin': '*', credentials: 'same-origin'}).then(response =>response.json());
+      setSavedRecipes(getSavedRecipes);
+        // set trees
+      const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json());
+      setTrees(message['message']);
+      console.log(trees);
+      // viewed recipes
+      const getViewedRecipes = await fetch("http://localhost:5000/update-viewed?user=" + localStorage.getItem("user"), {mode:"cors", 'Access-Control-Allow-Origin': '*', credentials: 'same-origin'}).then(response =>response.json());
+      setMyRecipes(getViewedRecipes);
+    }
+    fetchData();
   }, []);
 
   useEffect(() => { 
@@ -104,7 +85,7 @@ function App(props) {
       }).then(response => response.json())
         .then(data => console.log(data))
       const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json())
-      trees = message['message']
+      setTrees(message['message']);
       console.log(trees)
     }
     fetchData();

@@ -21,6 +21,7 @@ function Login(props) {
         const authenticated = true; // authenticate here
         if (authenticated) {
             setLoggedIn(true);
+            localStorage.setItem("loggedIn", true);
         } else {
             e.preventDefault();
         }
