@@ -1,0 +1,73 @@
+.Recipe {
+    padding: 2vw;
+    background: white;
+    border-bottom: 1px solid silver;
+}
+
+hr {
+    color: silver;
+    border-top: 1px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recipe-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 2vh;
+}
+
+.recipe-thumbnail-img {
+    height: 60vh;
+    width: 50vw;
+}
+
+.recipe-steps-playlist {
+    padding: 2vw;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.recipe-header {
+    text-align: left;
+}
+
+.recipe-header h1 {
+    margin-bottom: 1vh;
+}
+
+.search-bar {
+    border: 1px solid silver;
+    border-radius: 20px;
+    padding: 0.5%;
+    margin-right: 1vw;
+}
+
+.playlist-btn {
+    background: #F9AE3D;
+    border-radius: 20px;
+    padding: 1%;
+    border: none;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.right-side-buttons {
+    display: flex;
+}
+
+.playlist-btn:hover {
+    background: #ce871c;
+}
+
+.bookmark {
+    width: 2vw;
+    margin-left: 1vw;
+    cursor: pointer;
+}

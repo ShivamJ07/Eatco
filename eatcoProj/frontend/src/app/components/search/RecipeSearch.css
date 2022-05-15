@@ -1,0 +1,12 @@
+.RecipeSearch h1 {
+    font-size: 4vh;
+}
+
+.recipe-search {
+    margin-top: 5%;
+}
+
+.search-bar {
+    width: 50%;
+    font-size: 2vh;
+}
