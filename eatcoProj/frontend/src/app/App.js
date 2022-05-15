@@ -173,7 +173,7 @@ function App() {
       )}
 
       {showRecipe && (
-        <Recipe recipe={openedRecipe} loggedIn={loggedIn} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} />
       )}
 
       <footer>
