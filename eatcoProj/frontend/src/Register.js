@@ -31,7 +31,7 @@ function Register(props) {
 
     return (
     <div className="Register">
-      <div className="containerPage">
+      <div className="container containerPage">
         <div className="container containerIcon">
             <img src={logo} />
         </div>
