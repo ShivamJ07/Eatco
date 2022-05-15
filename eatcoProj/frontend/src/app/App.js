@@ -21,7 +21,8 @@ function App() {
   const [showMyRecipes, setShowMyRecipes] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [myRecipes, setMyRecipes] = useState([]);
-  const [trees, setTrees] = useState(3);
+
+  const trees = 3; // need to make api get request to trees
 
   useEffect(() => setMounted(true), []);
 
