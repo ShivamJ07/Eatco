@@ -63,7 +63,9 @@ function App() {
 
   const getRecipe = (recipe) => {
     console.debug('get recipe ', recipe.name);
-    // add recipe to user's viewed recipes
+    if (!myRecipes.includes(recipe)) {
+      setMyRecipes([...myRecipes, recipe]);
+    }
     setOpenedRecipe(recipe);
     setShowRecipe(true);
   }
@@ -78,8 +80,8 @@ function App() {
     setShowHeader(true);
   }
 
-  useEffect(() => { // api request here for saved recipes
-    setSavedRecipes([
+  useEffect(() => {
+    setSavedRecipes([ // api GET request here for saved recipes
       {
         name: 'Vegan Chicken',
         image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
@@ -94,6 +96,15 @@ function App() {
         ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
         steps: ['Cook chicken', 'Eat chicken']
       },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      }
+    ]);
+    setMyRecipes([ // api GET request here for recipe history
       {
         name: 'Vegan Chicken',
         image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
@@ -104,17 +115,11 @@ function App() {
     ]);
   }, []);
 
-  useEffect(() => { // api request here for recipe history
-    setMyRecipes([
-      {
-        name: 'Vegan Chicken',
-        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
-        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
-        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
-        steps: ['Cook chicken', 'Eat chicken']
-      }
-    ]);
-  }, []);
+  useEffect(() => { // api POST request here for saved recipes using savedRecipes
+  }, [savedRecipes]);
+
+  useEffect(() => { // api POST request here for recipe history using myRecipes
+  }, [myRecipes]);
 
   return (
     <div className="App">
@@ -176,7 +181,7 @@ function App() {
       )}
 
       {showRecipe && (
-        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes} trees={trees} setTrees={setTrees} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes} />
       )}
 
       <footer>

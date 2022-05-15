@@ -9,9 +9,7 @@ function Recipe(props) {
     loggedIn,
     setShowRecipe,
     savedRecipes,
-    setSavedRecipes,
-    trees,
-    setTrees
+    setSavedRecipes
   } = props;
 
   const [playlistURI, setplaylistURI] = useState('');
@@ -19,15 +17,11 @@ function Recipe(props) {
   const saveRecipe = () => {
     console.debug('Save recipe');
     
-    if (!savedRecipes.include(recipe)) {
-      setTrees(trees+1);
-      var updatedRecipes = savedRecipes.slice();
-      updatedRecipes.push(recipe);
+    if (!savedRecipes.includes(recipe)) { // add recipe if not already in saved otherwise assume user wants to remove it
+      setSavedRecipes([...savedRecipes, recipe]);
     } else {
-      setTrees(trees-1);
-      var updatedRecipes = savedRecipes.filter(otherRecipe => otherRecipe !== recipe);
+      setSavedRecipes(savedRecipes.filter(otherRecipe => otherRecipe !== recipe));
     }
-    setSavedRecipes(updatedRecipes);
   }
 
   const generatePlaylist = () => {
