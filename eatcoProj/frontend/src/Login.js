@@ -28,7 +28,7 @@ function Login(props) {
     }
     return (
     <div className="Login">
-      <div className="containerPage">
+      <div className="container containerPage">
         <div className="container containerIcon">
             <img src={logo} />
         </div>
@@ -48,7 +48,7 @@ function Login(props) {
                     <input type="password" placeholder="Enter Password" name="psw" id="psw" required value={pw} onChange={updatePw} />
                 </div>
             </div>
-            <div className="containerSubmit">
+            <div className="container containerSubmit">
                 <button type="submit" className="registerbtn">Submit</button>
             </div>
         </form>
