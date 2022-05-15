@@ -101,7 +101,7 @@ function App() {
     ]
   }
 
-  const myRecipes = () => { // api request here for my recipes
+  const myRecipes = () => { // api request here for recipe history
     return [
       {
         name: 'Vegan Chicken',
@@ -177,7 +177,7 @@ function App() {
       )}
 
       <footer>
-        <a href="#">© eatco 2022</a>
+        <a href="/">© eatco 2022</a>
       </footer>
 
     </div>
