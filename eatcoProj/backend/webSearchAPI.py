@@ -1,5 +1,3 @@
-from cgitb import text
-from turtle import rt
 from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -34,6 +32,7 @@ def lookupRecipes(search_string):
         recipes[i]["title"] = rTitle
         recipes[i]["ingredients"] = []
         recipes[i]["instructions"] = []
+        recipes[i]["trees_saved"] = trees_saved
         for ingredient in result.find(("ul"),{"class":"ingredients-section"}).find_all(("li"), {"class":"ingredients-item"}):
             text_to_add = ingredient.text.strip()
             text_to_add = text_to_add.replace('\'', '')
@@ -43,7 +42,7 @@ def lookupRecipes(search_string):
             text_to_add = text_to_add.replace('\'', '')
             recipes[i]["instructions"].append(text_to_add)
               
-    return{"recipes": recipes, "trees_saved": trees_saved}
+    return{"recipes": recipes}
 
     # recipes = []
     # search_query_url = "https://api.edamam.com/api/recipes/v2?type=public&app_id=" + os.environ.get('RECIPE_APP_ID') + "&app_key=" + os.environ.get('RECIPE_APP_KEY') + "&health=vegetarian&q=" + search_string
