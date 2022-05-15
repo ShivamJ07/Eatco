@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import menu from './menu.svg'
 import './Header.css';
 
 function Header(props) {
@@ -11,7 +12,7 @@ function Header(props) {
     <div className={'Header' + (showHeader ? '' : ' hide-element')}>
       <nav>
         <div className='menu-icon' onClick={openMenu}>
-          <img src="https://www.flaticon.com/svg/vstatic/svg/3917/3917215.svg?token=exp=1652550997~hmac=ff8e97d05155bf77a55389cf2fbec99f" />
+          <img src={menu} />
         </div>
         <h1 className='logo'>eatco</h1>
         <h1></h1>

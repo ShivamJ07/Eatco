@@ -17,6 +17,8 @@ function App() {
   const [fetchedRecipes, setFetchedRecipes] = useState(false);
   const [showRecipe, setShowRecipe] = useState(false);
   const [openedRecipe, setOpenedRecipe] = useState({});
+  const [showSavedRecipes, setShowSavedRecipes] = useState(false);
+  const [showMyRecipes, setShowMyRecipes] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -34,6 +36,7 @@ function App() {
 
   const getRecipe = (recipe) => {
     console.debug('get recipe ', recipe.name);
+    // add recipe to user's viewed recipes
     setOpenedRecipe(recipe);
     setShowRecipe(true);
   }
@@ -48,14 +51,52 @@ function App() {
     setShowHeader(true);
   }
 
+  const savedRecipes = () => { // api request here for saved recipes
+    return [
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      },
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      }
+    ]
+  }
+
+  const myRecipes = () => { // api request here for recipe history
+    return [
+      {
+        name: 'Vegan Chicken',
+        image: 'https://www.theedgyveg.com/wp-content/uploads/2020/08/P1499297-2WEB.jpg',
+        source: 'https://www.theedgyveg.com/2020/08/04/vegan-chicken/',
+        ingredients: ['1 lbs chicken breasts', '1 tbsp olive oils'],
+        steps: ['Cook chicken', 'Eat chicken']
+      }
+    ]
+  }
+
   return (
     <div className="App">
 
-      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} />
+      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
 
       <Header openMenu={openMenu} showHeader={showHeader} />
 
-      {!showRecipe && (
+      {!showRecipe && !showSavedRecipes && !showMyRecipes && (
         <>
           <RecipeSearch setRecipeQuery={setRecipeQuery} />
 
@@ -73,12 +114,46 @@ function App() {
         </>
       )}
 
+      {!showRecipe && showMyRecipes && (
+        <>
+        <h1>Recipes You've Viewed</h1>
+          <div className='recipe-thumbnails'>
+            {myRecipes().map(recipe => 
+              <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
+            )}
+          </div>
+
+          {savedRecipes().length === 0 && (
+            <div className='no-results'>
+              <h3>You haven't viewed any recipes yet!</h3>
+            </div>
+          )}
+        </>
+      )}
+
+      {!showRecipe && showSavedRecipes && (
+        <>
+        <h1>Saved Recipes</h1>
+          <div className='recipe-thumbnails'>
+            {savedRecipes().map(recipe => 
+              <RecipeThumbnail recipe={recipe} onClick={() => getRecipe(recipe)} key={recipe} />
+            )}
+          </div>
+
+          {savedRecipes().length === 0 && (
+            <div className='no-results'>
+              <h3>You don't have any saved recipes yet!</h3>
+            </div>
+          )}
+        </>
+      )}
+
       {showRecipe && (
-        <Recipe recipe={openedRecipe} loggedIn={loggedIn} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} />
       )}
 
       <footer>
-        <a href="#">© eatco 2022</a>
+        <a href="/">© eatco 2022</a>
       </footer>
 
     </div>
