@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import exit from './exit.svg'
+import logo from './logo.svg';
 import './Sidebar.css';
 
 function Sidebar(props) {
@@ -39,7 +40,7 @@ function Sidebar(props) {
     <div className={'Sidebar' + (showSidebar ? '' : ' hide-element')}>
       <div className='sidebar-heading'>
           <img src={exit} onClick={closeMenu} />
-          <h1 className='logo'>eatco</h1>
+          <img className='logo' src={logo} />
       </div>
       <div className='nav-links'>
         <a href="/">Search</a>

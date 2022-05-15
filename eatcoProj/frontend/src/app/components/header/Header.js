@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import menu from './menu.svg'
-import tree from './tree.svg'
+import menu from './menu.svg';
+import tree from './tree.svg';
+import logo from '../../../../src/logo.svg';
 import './Header.css';
 
 function Header(props) {
@@ -16,7 +17,7 @@ function Header(props) {
         <div className='menu-icon' onClick={openMenu}>
           <img src={menu} />
         </div>
-        <h1 className='logo'>eatco</h1>
+        <img className='logo' src={logo} />
         <div className='trees'>
           <p>{trees}</p>
           <img src={tree} id="tree-icon" />
