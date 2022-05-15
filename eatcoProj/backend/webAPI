@@ -1,0 +1,11 @@
+from googlesearch import search
+from bs4 import BeautifulSoup
+import requests
+
+search_query = ('Kung Pao Chicken' + 'site:wikipedia.org').lower()
+for link in search(search_query, tld='com', lang='en', num=1, start=0, stop=1, pause=2):
+    result = requests.get(link)
+    results = BeautifulSoup(result.text, "html.parser")
+    
+country = results.find(("td"), {"class": "infobox-data country-name"}).find(("a")).text
+print(country)
