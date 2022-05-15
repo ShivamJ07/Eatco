@@ -71,3 +71,14 @@ hr {
     margin-left: 1vw;
     cursor: pointer;
 }
+
+#embed-iframe {
+    border-radius: 20px;
+}
+
+.playlist-alert {
+    border-radius: 20px;
+    background-color: rgba(249, 208, 28, 0.312);
+    padding: 1vw;
+    margin-bottom: 1vh;
+}

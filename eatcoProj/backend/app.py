@@ -34,6 +34,16 @@ def auth_page_for_redirect():
 def getRecipe():
     return lookupRecipes(request.args['search'])
 
+@app.route('/get-trees-saved')
+@cross_origin()
+def getTreesSaved():
+    username = request.args.get('user')
+    user = users.find_one({"username":username})
+    if user is not None:
+        return {"message": user['treesSaved']}
+    else:
+        return {"message": "invalid user"}
+
 @app.route('/login/', methods=['POST'])
 @cross_origin()
 def user_login_check():
@@ -228,7 +238,7 @@ def generate_playlist(messages):
     }
     add_song_response = requests.post(add_song_api_endpoint, data = json.dumps(add_song_params), headers = authorization_header)
     add_song_data = json.loads(add_song_response.text)
-    return playlist_id
+    return redirect('https://open.spotify.com/playlist/' + playlist_id)
 
 if __name__ == '__main__':
     app.run(debug=True)
