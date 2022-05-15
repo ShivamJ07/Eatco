@@ -45,9 +45,13 @@ def getTreesSaved():
     else:
         return {"message": "invalid user"}
 
-@app.route('/update-saved', methods=['POST'])
+@app.route('/update-saved', methods=['GET','POST'])
 @cross_origin()
 def savedUpdate():
+    if request.method == 'GET':
+        user = request.args.get("username")
+        the_user = users.find_one({'username': user})
+        return {"recipesSaved": the_user["recipesSaved"]}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')
@@ -67,9 +71,13 @@ def savedUpdate():
     else:
         return {"recipesSaved": []}
 
-@app.route('/update-viewed', methods=['POST'])
+@app.route('/update-viewed', methods=['GET','POST'])
 @cross_origin()
 def viewedUpdate():
+    if request.method == 'GET':
+        user = request.args.get("username")
+        the_user = users.find_one({'username': user})
+        return {"recipesSaved": the_user["recipesViewed"]}
     recipe_string = request.form.get("recipe")
     if recipe_string != None:
         recipe_string = recipe_string.replace('\'','\"')
