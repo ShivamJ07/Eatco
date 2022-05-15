@@ -1,3 +1,4 @@
+from audioop import cross
 from flask import Flask, request, redirect, render_template, url_for, session
 from webSearchAPI import lookupRecipes
 from pymongo import MongoClient
@@ -15,7 +16,7 @@ app.config['SECRET_KEY'] = 'Shivam&Arnav - Ended 2022'
 
 load_dotenv()
 
-cluster = MongoClient(os.environ.get('dbURI'))
+cluster = MongoClient(os.environ.get('dbURI'))# + '&ssl=true&ssl_cert_reqs=CERT_NONE&connect=false')
 
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
 
@@ -43,6 +44,70 @@ def getTreesSaved():
         return {"message": user['treesSaved']}
     else:
         return {"message": "invalid user"}
+
+@app.route('/update-saved', methods=['POST'])
+@cross_origin()
+def savedUpdate():
+    recipe_string = request.form.get("recipe")
+    recipe_string = recipe_string.replace('\'','\"')
+    recipe = json.loads(recipe_string)
+    user = request.form.get("username")
+    trees_saved = recipe['trees_saved']
+    updateTrees = {
+        "$set": {"treesSaved": 10}
+    }
+    users.update_one({'username': user}, updateTrees)
+
+    updateSavedRecipes(user, recipe)
+    return {"message": "success"}
+
+@app.route('/update-viewed', methods=['POST'])
+@cross_origin()
+def viewedUpdate():
+    recipe = json.loads(request.form.get("recipe"))
+    user = request.form.get("username")
+    updateViewedValue(user, recipe)
+    return {"message": "success"}
+    
+def updateSavedRecipes(username, recipe):
+    exists = False
+    for user in list(users.find({"recipesSaved": {"$exists": True}})):
+        if user['username'] == username:
+            exists = True 
+            break
+    if not exists:
+        updateEmpty = {
+            "$set": {"recipesSaved": [recipe]}
+        }
+        users.update_one({'username':username}, updateEmpty)
+    else:
+        recipes = list(users.find({'username':username}))[0]['recipesSaved']
+        recipes.append(recipe)
+        updateFilled = {
+            "$set": {"recipesSaved": recipes}
+        }
+        users.update_one({'username':username}, updateFilled)
+
+def updateViewedValue(username, recipe):
+
+    exists = False
+    for user in list(users.find({"recipesViewed": {"$exists": True}})):
+        if user['username'] == username:
+            exists = True 
+            break
+    
+    if not exists:
+        updateEmpty = {
+            "$set": {"recipesViewed": [recipe]}
+        }
+        users.update_one({'username':username}, updateEmpty)
+    else:
+        recipes = list(users.find({'username':username}))[0]['recipesViewed']
+        recipes.append(recipe)
+        updateFilled = {
+            "$set": {"recipesViewed": recipes}
+        }
+        users.update_one({'username':username}, updateFilled)
 
 @app.route('/login/', methods=['POST'])
 @cross_origin()
