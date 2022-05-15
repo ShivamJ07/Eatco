@@ -27,7 +27,7 @@ function Recipe(props) {
   const generatePlaylist = () => {
     localStorage.setItem("recipe", JSON.stringify(recipe))
     var scope = 'playlist-modify-private playlist-modify-public';
-    var spotifyLoginWindow = window.open("http://localhost:5000/login-spotify?recipe=" + JSON.stringify(recipe))
+    var spotifyLoginWindow = window.open("http://localhost:5000/login-spotify?recipe=" + JSON.stringify(recipe), 'Login with Spotify')
     console.debug('Generate playlist');
     setplaylistURI('37i9dQZF1E35azQvKUNASY'); // replace this with generated playlist uri
   }

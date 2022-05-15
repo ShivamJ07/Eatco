@@ -22,7 +22,7 @@ function App() {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [myRecipes, setMyRecipes] = useState([]);
 
-  const trees = 3; // need to make api get request to trees
+  var trees = 0; // need to make api get request to trees
 
   useEffect(() => setMounted(true), []);
 
@@ -92,10 +92,37 @@ function App() {
     ]);
   }, []);
 
-  useEffect(() => { // api POST request here for saved recipes using savedRecipes
+  useEffect(() => { 
+    async function fetchData() {
+      fetch("http://localhost:5000/update-saved",
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          recipe: openedRecipe,
+          user: localStorage.getItem("user")
+        })
+      }).then(response => response.json())
+        .then(data => console.log(data))
+      const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json())
+      trees = message['message']
+      console.log(trees)
+    }
+    fetchData();
   }, [savedRecipes]);
 
-  useEffect(() => { // api POST request here for recipe history using myRecipes
+  useEffect(() => { 
+    async function fetchData() {
+      fetch("http://localhost:5000/update-viewed",
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          recipe: openedRecipe,
+          user: localStorage.getItem("user")
+        })
+      }).then(response => response.json())
+        .then(data => console.log(data))
+    }
+    fetchData();
   }, [myRecipes]);
 
   return (

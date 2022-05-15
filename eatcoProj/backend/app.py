@@ -49,25 +49,39 @@ def getTreesSaved():
 @cross_origin()
 def savedUpdate():
     recipe_string = request.form.get("recipe")
-    recipe_string = recipe_string.replace('\'','\"')
-    recipe = json.loads(recipe_string)
-    user = request.form.get("username")
-    trees_saved = recipe['trees_saved']
-    updateTrees = {
-        "$set": {"treesSaved": 10}
-    }
-    users.update_one({'username': user}, updateTrees)
+    if recipe_string != None:
+        recipe_string = recipe_string.replace('\'','\"')
+        recipe = json.loads(recipe_string)
+        user = request.form.get("username")
+        if user == "null":
+            return {"recipedSaved": []}
+        trees_saved = recipe['trees_saved']
+        updateTrees = {
+            "$set": {"treesSaved": 10}
+        }
+        users.update_one({'username': user}, updateTrees)
 
-    updateSavedRecipes(user, recipe)
-    return {"message": "success"}
+        updateSavedRecipes(user, recipe)
+        the_user = users.find_one({'username': user})
+        return {"recipesSaved": the_user["recipesSaved"]}
+    else:
+        return {"recipesSaved": []}
 
 @app.route('/update-viewed', methods=['POST'])
 @cross_origin()
 def viewedUpdate():
-    recipe = json.loads(request.form.get("recipe"))
-    user = request.form.get("username")
-    updateViewedValue(user, recipe)
-    return {"message": "success"}
+    recipe_string = request.form.get("recipe")
+    if recipe_string != None:
+        recipe_string = recipe_string.replace('\'','\"')
+        recipe = json.loads(recipe_string)
+        user = request.form.get("username")
+        if user == "null":
+            return {"recipedViewed": []}
+        updateViewedValue(user, recipe)
+        the_user = users.find_one({'username': user})
+        return {"recipesViewed": the_user["recipesViewed"]}
+    else:
+        return {"recipedViewed": []}
     
 def updateSavedRecipes(username, recipe):
     exists = False
