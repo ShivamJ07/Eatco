@@ -9,14 +9,15 @@ function Recipe(props) {
     loggedIn,
     setShowRecipe,
     savedRecipes,
-    setSavedRecipes
+    setSavedRecipes,
+    setTrees
   } = props;
 
   const [playlistURI, setplaylistURI] = useState('');
 
   const saveRecipe = () => {
     console.debug('Save recipe');
-    
+    setTrees(7);
     if (!savedRecipes.includes(recipe)) { // add recipe if not already in saved otherwise assume user wants to remove it
       setSavedRecipes([...savedRecipes, recipe]);
     } else {
@@ -72,14 +73,14 @@ function Recipe(props) {
             )}
           </ol>
         </div>
-        {playlistURI && (
+        {/*playlistURI && (
         <div className='recipe-playlist'>
           <div className='playlist-alert'>
             <p>A cooking playlist to keep you company :)</p>
           </div>
           <iframe id="embed-iframe" src={`https://open.spotify.com/embed/playlist/${playlistURI}?utm_source=generator`} width="100%" height="380" frameBorder="0" allowFullScreen></iframe>
         </div>
-        )}
+        )*/}
       </div>
 
     </div>

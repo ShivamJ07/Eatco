@@ -39,7 +39,8 @@ function App(props) {
   }, [recipeQuery]);
 
   const getRecipe = (recipe) => {
-    console.debug('get recipe ', recipe.name);
+    console.debug('get recipe ', recipe.title);
+    console.debug(myRecipes);
     if (!myRecipes.includes(recipe)) {
       setMyRecipes([...myRecipes, recipe]);
     }
@@ -61,14 +62,14 @@ function App(props) {
     async function fetchData() {
       // saved recipes
       const getSavedRecipes = await fetch("http://localhost:5000/update-saved?user=" + localStorage.getItem("user"), {mode:"cors", 'Access-Control-Allow-Origin': '*', credentials: 'same-origin'}).then(response =>response.json());
-      setSavedRecipes(getSavedRecipes);
+      setSavedRecipes(getSavedRecipes['recipesSaved']);
         // set trees
       const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json());
       setTrees(message['message']);
       console.log(trees);
       // viewed recipes
       const getViewedRecipes = await fetch("http://localhost:5000/update-viewed?user=" + localStorage.getItem("user"), {mode:"cors", 'Access-Control-Allow-Origin': '*', credentials: 'same-origin'}).then(response =>response.json());
-      setMyRecipes(getViewedRecipes);
+      setMyRecipes(getViewedRecipes['recipesViewed']);
     }
     fetchData();
   }, []);
@@ -85,7 +86,8 @@ function App(props) {
       }).then(response => response.json())
         .then(data => console.log(data))
       const message = await fetch("http://localhost:5000/get-trees-saved?user=" + localStorage.getItem("user")).then(response =>response.json())
-      setTrees(message['message']);
+      // setTrees(message['message']);
+      // setTrees(7);
       console.log(trees)
     }
     fetchData();
@@ -104,6 +106,7 @@ function App(props) {
         .then(data => console.log(data))
     }
     fetchData();
+    console.log(trees)
   }, [myRecipes]);
 
   return (
@@ -166,7 +169,7 @@ function App(props) {
       )}
 
       {showRecipe && (
-        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes} />
+        <Recipe recipe={openedRecipe} loggedIn={loggedIn} setShowRecipe={setShowRecipe} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes} setTrees={setTrees} />
       )}
 
       <footer>
