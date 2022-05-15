@@ -6,9 +6,9 @@ import RecipeSearch from './components/search/RecipeSearch';
 import RecipeThumbnail from './components/recipe-thumbnail/RecipeThumbnail';
 import Recipe from './components/recipe/Recipe';
 
-function App() {
+function App(props) {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const {loggedIn, setLoggedIn} = props;
   const [mounted, setMounted] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -101,7 +101,7 @@ function App() {
   return (
     <div className="App">
 
-      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
+      <Sidebar closeMenu={closeMenu} loggedIn={loggedIn} setLoggedIn={setLoggedIn} showSidebar={showSidebar} setShowSavedRecipes={setShowSavedRecipes} setShowMyRecipes={setShowMyRecipes} />
 
       <Header openMenu={openMenu} showHeader={showHeader} trees={trees} />
 

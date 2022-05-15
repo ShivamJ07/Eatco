@@ -6,6 +6,7 @@ function Sidebar(props) {
   const {
     closeMenu,
     loggedIn,
+    setLoggedIn,
     showSidebar,
     setShowSavedRecipes,
     setShowMyRecipes
@@ -29,6 +30,11 @@ function Sidebar(props) {
     }
   }
 
+  const logout = () => {
+    setLoggedIn(false);
+    // redirect to index
+  }
+
   return (
     <div className={'Sidebar' + (showSidebar ? '' : ' hide-element')}>
       <div className='sidebar-heading'>
@@ -44,7 +50,7 @@ function Sidebar(props) {
         {loggedIn && (
           <>
             <a href="#">Settings</a>
-            <a href="/logout">Log Out</a>
+            <a href="#" onClick={logout}>Log Out</a>
           </>
         )}
         {!loggedIn && (
