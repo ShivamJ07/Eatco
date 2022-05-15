@@ -31,7 +31,8 @@ function Sidebar(props) {
     }
   }
 
-  const logout = () => {
+  const logout = e => {
+    e.preventDefault()
     setLoggedIn(false);
     // redirect to index
   }
@@ -51,7 +52,7 @@ function Sidebar(props) {
         {loggedIn && (
           <>
             <a href="#">Settings</a>
-            <a href="#" onClick={logout}>Log Out</a>
+            <a href="/" onClick={logout}>Log Out</a>
           </>
         )}
         {!loggedIn && (
