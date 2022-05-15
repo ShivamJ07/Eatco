@@ -1,4 +1,4 @@
-.Login {
+.Login, .Register {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -14,9 +14,21 @@
 }
 
 .containerFormInput .containerText {
-    width: 55%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
     text-align: right;
     margin: 2%;
+    justify-content: right;
+    align-items: center;
+}
+
+.Login .containerFormInput .containerText {
+    margin-right: 25%;
+}
+
+.Register .containerFormInput .containerText {
+    margin-right: 35%;
 }
 
 label {
@@ -39,4 +51,11 @@ button {
   
 button:hover {
     background: #ce871c;
+}
+
+input {
+    font-size: 2vh;
+    border-radius: 20px;
+    border: 1px solid silver;
+    padding: 1vh;
 }
