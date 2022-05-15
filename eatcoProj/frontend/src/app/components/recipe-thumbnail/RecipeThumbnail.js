@@ -11,7 +11,7 @@ function RecipeThumbnail(props) {
   return (
     <div className="RecipeThumbnail" onClick={onClick}>
       <img src={recipe.image} className="recipe-thumbnail-img" />
-      <h3 className='recipe-thumbnail-name'>{recipe.name} </h3>
+      <h3 className='recipe-thumbnail-name'>{recipe.title} </h3>
     </div>
   );
 }

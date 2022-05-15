@@ -25,7 +25,11 @@ function App() {
   useEffect(() => {
     if (mounted) {
       console.log('this happened');
-      fetch("http://localhost:5000/get-recipe?search=" + recipeQuery).then(response => response.json()).then(data => console.log(data));
+      async function fetchData(){
+        const response = await fetch("http://localhost:5000/get-recipe?search=" + recipeQuery).then(response => response.json()).then(data => data.recipes);
+        setRecipes(response);
+      }
+      fetchData();
     setFetchedRecipes(true);
     }
   }, [recipeQuery]);
